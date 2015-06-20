@@ -58,11 +58,11 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   CONSTRAINT `auth__content_type_id_6ef3008539a64820_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 /*Data for the table `auth_permission` */
 
-insert  into `auth_permission`(`id`,`name`,`content_type_id`,`codename`) values (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add permission',2,'add_permission'),(5,'Can change permission',2,'change_permission'),(6,'Can delete permission',2,'delete_permission'),(7,'Can add group',3,'add_group'),(8,'Can change group',3,'change_group'),(9,'Can delete group',3,'delete_group'),(10,'Can add user',4,'add_user'),(11,'Can change user',4,'change_user'),(12,'Can delete user',4,'delete_user'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session');
+insert  into `auth_permission`(`id`,`name`,`content_type_id`,`codename`) values (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add permission',2,'add_permission'),(5,'Can change permission',2,'change_permission'),(6,'Can delete permission',2,'delete_permission'),(7,'Can add group',3,'add_group'),(8,'Can change group',3,'change_group'),(9,'Can delete group',3,'delete_group'),(10,'Can add user',4,'add_user'),(11,'Can change user',4,'change_user'),(12,'Can delete user',4,'delete_user'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add city',7,'add_city'),(20,'Can change city',7,'change_city'),(21,'Can delete city',7,'delete_city'),(22,'Can add route segment',8,'add_routesegment'),(23,'Can change route segment',8,'change_routesegment'),(24,'Can delete route segment',8,'delete_routesegment');
 
 /*Table structure for table `auth_user` */
 
@@ -152,11 +152,11 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_7b777cb4a6842f76_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `django_content_type` */
 
-insert  into `django_content_type`(`id`,`app_label`,`model`) values (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'sessions','session');
+insert  into `django_content_type`(`id`,`app_label`,`model`) values (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(7,'freeways','city'),(8,'freeways','routesegment'),(6,'sessions','session');
 
 /*Table structure for table `django_migrations` */
 
@@ -168,11 +168,11 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `django_migrations` */
 
-insert  into `django_migrations`(`id`,`app`,`name`,`applied`) values (1,'contenttypes','0001_initial','2015-06-20 20:51:33.735237'),(2,'auth','0001_initial','2015-06-20 20:51:34.768030'),(3,'admin','0001_initial','2015-06-20 20:51:35.143486'),(4,'contenttypes','0002_remove_content_type_name','2015-06-20 20:51:35.312574'),(5,'auth','0002_alter_permission_name_max_length','2015-06-20 20:51:35.438093'),(6,'auth','0003_alter_user_email_max_length','2015-06-20 20:51:35.536023'),(7,'auth','0004_alter_user_username_opts','2015-06-20 20:51:35.553876'),(8,'auth','0005_alter_user_last_login_null','2015-06-20 20:51:35.648593'),(9,'auth','0006_require_contenttypes_0002','2015-06-20 20:51:35.660619'),(10,'sessions','0001_initial','2015-06-20 20:51:35.765058');
+insert  into `django_migrations`(`id`,`app`,`name`,`applied`) values (1,'contenttypes','0001_initial','2015-06-20 20:51:33.735237'),(2,'auth','0001_initial','2015-06-20 20:51:34.768030'),(3,'admin','0001_initial','2015-06-20 20:51:35.143486'),(4,'contenttypes','0002_remove_content_type_name','2015-06-20 20:51:35.312574'),(5,'auth','0002_alter_permission_name_max_length','2015-06-20 20:51:35.438093'),(6,'auth','0003_alter_user_email_max_length','2015-06-20 20:51:35.536023'),(7,'auth','0004_alter_user_username_opts','2015-06-20 20:51:35.553876'),(8,'auth','0005_alter_user_last_login_null','2015-06-20 20:51:35.648593'),(9,'auth','0006_require_contenttypes_0002','2015-06-20 20:51:35.660619'),(10,'sessions','0001_initial','2015-06-20 20:51:35.765058'),(11,'freeways','0001_initial','2015-06-20 21:04:37.240615');
 
 /*Table structure for table `django_session` */
 
@@ -187,6 +187,41 @@ CREATE TABLE `django_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `django_session` */
+
+/*Table structure for table `freeways_city` */
+
+DROP TABLE IF EXISTS `freeways_city`;
+
+CREATE TABLE `freeways_city` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `lane_miles` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `freeways_city` */
+
+/*Table structure for table `freeways_routesegment` */
+
+DROP TABLE IF EXISTS `freeways_routesegment`;
+
+CREATE TABLE `freeways_routesegment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `highway` varchar(200) NOT NULL,
+  `segment_name` varchar(200) NOT NULL,
+  `ring` int(11) NOT NULL,
+  `length` decimal(5,2) NOT NULL,
+  `lanes` int(11) NOT NULL,
+  `lane_miles` decimal(5,2) NOT NULL,
+  `start_lat` decimal(10,6) NOT NULL,
+  `start_lng` decimal(10,6) NOT NULL,
+  `end_lat` decimal(10,6) NOT NULL,
+  `end_lng` decimal(10,6) NOT NULL,
+  `geojson` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `freeways_routesegment` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
