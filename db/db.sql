@@ -82,9 +82,11 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `auth_user` */
+
+insert  into `auth_user`(`id`,`password`,`last_login`,`is_superuser`,`username`,`first_name`,`last_name`,`email`,`is_staff`,`is_active`,`date_joined`) values (1,'pbkdf2_sha256$20000$TIPwXi5l23FK$k781vQJa8T95/00bYL6K5XSd7QlWAG1uOlvAwowTw64=','2015-06-20 21:10:38.926946',1,'admin','','','keith.dechant@gmail.com',1,1,'2015-06-20 21:10:17.325327');
 
 /*Table structure for table `auth_user_groups` */
 
