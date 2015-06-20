@@ -13,4 +13,5 @@ def index(request):
 
 # API method to provide stats and route data for a city. Outputs JSON.
 def api(request, city_id):
-    return HttpResponse(json.dumps('Under construction'), content_type="application/json")
+    city = City.objects.get(pk=city_id)
+    return HttpResponse(json.dumps(city.getRoutes()), content_type="application/json")

@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 # Create your models here.
 
@@ -11,6 +12,21 @@ class City(models.Model):
     
     class Meta:
         verbose_name_plural = 'cities'
+    
+    # calculate statistics and routes for a city
+    def getRoutes(self):
+        all_routes = RouteSegment.objects.order_by('ring', '-lane_miles')
+        remaining_lane_miles = self.lane_miles
+        active_routes = []
+        for route in all_routes:
+            route_lane_miles = route.length * route.lanes;
+            # check if we have enough lane miles left to add this route segment 
+            if remaining_lane_miles > route_lane_miles:
+                active_routes.append(json.loads(route.geojson))
+                remaining_lane_miles -= route_lane_miles
+
+        output = {'name': self.name, 'lane_miles': self.lane_miles, 'remaining_lane_miles': str(remaining_lane_miles), 'routes': active_routes}
+        return output
     
 class RouteSegment(models.Model):
     highway = models.CharField(max_length=200)
