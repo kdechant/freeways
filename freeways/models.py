@@ -20,11 +20,10 @@ class City(models.Model):
         remaining_lane_miles = self.lane_miles
         active_routes = []
         for route in all_routes:
-            route_lane_miles = route.length * route.lanes;
             # check if we have enough lane miles left to add this route segment 
-            if remaining_lane_miles > route_lane_miles:
+            if remaining_lane_miles > route.lane_miles:
                 active_routes.append(json.loads(route.geojson))
-                remaining_lane_miles -= route_lane_miles
+                remaining_lane_miles -= route.lane_miles
 
         output = {'name': self.name, 'lane_miles': self.lane_miles, 'remaining_lane_miles': str(remaining_lane_miles), 'routes': active_routes}
         return output
@@ -53,7 +52,8 @@ class RouteSegment(models.Model):
         with urllib.request.urlopen(url) as response:
            jsonString = response.read().decode(encoding='UTF-8')
         jsonDict = json.loads(jsonString)
-        self.length = float(jsonDict['properties']['distance'])
+        # the API provides distance in km. convert to miles.
+        self.length = float(jsonDict['properties']['distance']) * .62
         self.geojson = jsonString
 
         # calculate lane miles based on segment length
