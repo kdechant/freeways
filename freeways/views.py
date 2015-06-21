@@ -8,7 +8,7 @@ from .models import RouteSegment, City
 
 # Create your views here.
 def index(request):
-    cities = City.objects.all()
+    cities = City.objects.all().order_by('name')
     return render(request, 'index.html', {'cities': cities})
 
 # API method to provide stats and route data for a city. Outputs JSON.
