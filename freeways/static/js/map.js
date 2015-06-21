@@ -4,7 +4,7 @@ $(function() {
         center: [34.038496, -118.273906],
         zoom: 9,
         minZoom: 7,
-        maxZoom: 11                 
+        maxZoom: 15                 
     });
     var geoJsonLayer;
 

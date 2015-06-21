@@ -1,4 +1,5 @@
 from django.db import models
+from geopy.distance import vincenty
 import json
 
 # Create your models here.
@@ -15,7 +16,7 @@ class City(models.Model):
     
     # calculate statistics and routes for a city
     def getRoutes(self):
-        all_routes = RouteSegment.objects.order_by('ring', '-lane_miles')
+        all_routes = RouteSegment.objects.order_by('distance_from_origin', '-lane_miles')
         remaining_lane_miles = self.lane_miles
         active_routes = []
         for route in all_routes:
@@ -31,7 +32,7 @@ class City(models.Model):
 class RouteSegment(models.Model):
     highway = models.CharField(max_length=200)
     segment_name = models.CharField(max_length=200)
-    ring = models.IntegerField(default=1)
+    distance_from_origin = models.DecimalField(default=0, max_digits=6, decimal_places=3, editable=False)
     length = models.DecimalField(default=0, max_digits=5, decimal_places=2, editable=False)
     lanes = models.IntegerField(default=10)
     lane_miles = models.DecimalField(default=0, max_digits=5, decimal_places=2, editable=False)
@@ -54,5 +55,16 @@ class RouteSegment(models.Model):
         jsonDict = json.loads(jsonString)
         self.length = float(jsonDict['properties']['distance'])
         self.geojson = jsonString
+
+        # calculate lane miles based on segment length
         self.lane_miles = self.length * self.lanes
+
+        # use geopy to calculate the distance from the origin point (downtown)
+        downtown = (34.052234, -118.243685)
+        start_point = [self.start_lat, self.start_lng]
+        end_point = [self.end_lat, self.end_lng]
+        distance1 = vincenty(downtown, start_point).miles
+        distance2 = vincenty(downtown, end_point).miles
+        self.distance_from_origin = min(distance1, distance2)
+
         super(RouteSegment, self).save()

@@ -8,8 +8,8 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ('name', 'lane_miles')
 
 class RouteSegmentAdmin(admin.ModelAdmin):
-    list_display = ('highway', 'segment_name', 'ring', 'length', 'lane_miles')
-    list_filter = ['ring']
+    list_display = ('highway', 'segment_name', 'distance_from_origin', 'length', 'lane_miles')
+    list_filter = ['highway']
 
 admin.site.register(RouteSegment, RouteSegmentAdmin)
 admin.site.register(City, CityAdmin)
