@@ -1,0 +1,103 @@
+[
+{
+    "pk": 1,
+    "model": "freeways.city",
+    "fields": {
+        "lane_miles": 100,
+        "name": "City 1"
+    }
+},
+{
+    "pk": 2,
+    "model": "freeways.city",
+    "fields": {
+        "lane_miles": 200,
+        "name": "City 2"
+    }
+},
+{
+    "pk": 1,
+    "model": "freeways.routesegment",
+    "fields": {
+        "highway": "1",
+        "segment_name": "segment 1",
+        "lanes": 10,
+        "length": "5",
+        "lane_miles": "50",
+        "distance_from_origin": "1",
+        "start_lat": "0",
+        "start_lng": "0",
+        "end_lat": "0",
+        "end_lng": "0",
+        "geojson": "{\"rt\": 1}"
+    }
+},
+{
+    "pk": 2,
+    "model": "freeways.routesegment",
+    "fields": {
+        "highway": "2",
+        "segment_name": "segment 2",
+        "lanes": 8,
+        "length": "5",
+        "lane_miles": "40",
+        "distance_from_origin": "2.0",
+        "start_lat": "0",
+        "start_lng": "0",
+        "end_lat": "0",
+        "end_lng": "0",
+        "geojson": "{\"rt\": 2}"
+    }
+},
+{
+    "pk": 3,
+    "model": "freeways.routesegment",
+    "fields": {
+        "highway": "3",
+        "segment_name": "segment 3",
+        "lanes": 10,
+        "length": "9",
+        "lane_miles": "90",
+        "distance_from_origin": "3.0",
+        "start_lat": "0",
+        "start_lng": "0",
+        "end_lat": "0",
+        "end_lng": "0",
+        "geojson": "{\"rt\": 3}"
+    }
+},
+{
+    "pk": 4,
+    "model": "freeways.routesegment",
+    "fields": {
+        "highway": "4",
+        "segment_name": "segment 4",
+        "lanes": 8,
+        "length": "2",
+        "lane_miles": "16",
+        "distance_from_origin": "4",
+        "start_lat": "0",
+        "start_lng": "0",
+        "end_lat": "0",
+        "end_lng": "0",
+        "geojson": "{\"rt\": 4}"
+    }
+},
+{
+    "pk": 5,
+    "model": "freeways.routesegment",
+    "fields": {
+        "highway": "999",
+        "segment_name": "segment 1",
+        "lanes": 4,
+        "length": "2",
+        "lane_miles": "8",
+        "distance_from_origin": "5",
+        "start_lat": "0",
+        "start_lng": "0",
+        "end_lat": "0",
+        "end_lng": "0",
+        "geojson": "{\"rt\": 5}"
+    }
+}
+]
