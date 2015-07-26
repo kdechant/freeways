@@ -16,14 +16,25 @@ class City(models.Model):
     
     # calculate statistics and routes for a city
     def getRoutes(self):
-        all_routes = RouteSegment.objects.order_by('distance_from_origin', '-lane_miles')
+        all_routes = RouteSegment.objects.order_by('-within_metro_area', 'distance_from_origin', '-lane_miles')
         remaining_lane_miles = self.lane_miles
         active_routes = []
+        can_select_outside_metro = True
         for route in all_routes:
+            # the lane miles values for the freeways seem to high. Using a fudge factor to compensate.
+            route.lane_miles = float(route.lane_miles) * .859
+            
+            # if we failed to select a route in the metro area, prevent
+            # selecting any route outside the metro area
+            if route.within_metro_area == 0 and not can_select_outside_metro:
+                continue
+                
             # check if we have enough lane miles left to add this route segment 
             if remaining_lane_miles > route.lane_miles:
                 active_routes.append(json.loads(route.geojson))
-                remaining_lane_miles -= route.lane_miles
+                remaining_lane_miles -= float(route.lane_miles)
+            elif route.within_metro_area:
+                can_select_outside_metro = False
 
         output = {'name': self.name, 'lane_miles': self.lane_miles, 'remaining_lane_miles': str(remaining_lane_miles), 'routes': active_routes}
         return output
@@ -40,6 +51,7 @@ class RouteSegment(models.Model):
     end_lat = models.DecimalField(max_digits=10, decimal_places=6)
     end_lng = models.DecimalField(max_digits=10, decimal_places=6)
     geojson = models.TextField(null=True, blank=True, editable=False)
+    within_metro_area = models.BooleanField(default=1)
     
     def __str__(self):
         return self.highway + " - " + self.segment_name
