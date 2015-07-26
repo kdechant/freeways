@@ -14,6 +14,17 @@ $(function() {
     var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 12, attribution: osmAttrib});		
 
     map.addLayer(osm);
+    
+    // add GeoJSON shapes for the counties
+    L.geoJson(counties, {
+        style: {
+            weight: 1,
+            color: "#999",
+            opacity: 0.4,
+            fillColor: "#f90",
+            fillOpacity: 0.2
+        }
+    }).addTo(map);
 
     $("#city_id_select").on('change', function() {
 
