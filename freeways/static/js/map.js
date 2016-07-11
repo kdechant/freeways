@@ -26,10 +26,12 @@ $(function() {
         }
     }).addTo(map);
 
-    $("#city_id_select").on('change', function() {
+    $("#city_id_select").on('change', update_map);
+
+    function update_map() {
 
         // call the Django API to get the routes data
-        $.getJSON( "/city/" + $(this).val(), function( data ) {
+        $.getJSON( "/city/" + $("#city_id_select").val(), function( data ) {
 
             // change the city name and statistics
             $("#city_name").html(data.name);
@@ -47,5 +49,6 @@ $(function() {
             geoJsonLayer.addTo(map);
         });   
 
-    })
+    }
+    update_map();
 });
