@@ -1,0 +1,11 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+geopy = "==1.*"
+mysqlclient = "==1.3.12"
+Django = "==2.1.*"
+
+[dev-packages]
